@@ -36,7 +36,7 @@ const Login = () => {
             }
           );
 
-          navigate("/profile");
+          navigate("/");
           console.log("Response ", res);
           dispatch(addUser(res?.data.data));
         } catch (error) {
