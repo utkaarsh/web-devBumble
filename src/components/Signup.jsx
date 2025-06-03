@@ -13,10 +13,10 @@ const SignupForm = () => {
   return (
     <Formik
       initialValues={{
-        firstName: "",
-        lastName: "",
-        emailId: "",
-        password: "",
+        firstName: "Pattrick",
+        lastName: "Bateman",
+        emailId: "drakebhai45@gmail.com",
+        password: "Passw0rd@123",
       }}
       validationSchema={Yup.object({
         firstName: Yup.string()
