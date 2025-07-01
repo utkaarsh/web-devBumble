@@ -15,7 +15,7 @@ const Login = () => {
   return (
     <Formik
       initialValues={{
-        emailId: "rohitsharma@gmail.com",
+        emailId: "brocklesnar@gmail.com",
         password: "Passw0rd@123",
       }}
       validationSchema={Yup.object({
