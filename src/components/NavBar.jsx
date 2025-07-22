@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL, main_logo } from "../utils/constants";
 import { Link, useNavigate } from "react-router-dom";
 import { removeUser } from "../utils/userSlice";
 
@@ -34,7 +34,10 @@ const NavBar = () => {
     <div className="navbar bg-base-300 top-0  px-3">
       <div className="flex-1">
         <Link to="/" className="btn btn-ghost text-xl font-bold uppercase">
-          Dev Bumble
+          <div className="flex items-center space-x-2">
+            <img src={main_logo} alt="devBumble-logo" className="h-10 w-10" />
+            <p>Dev Bumble</p>
+          </div>
         </Link>
       </div>
       <div className="flex-none gap-2">
