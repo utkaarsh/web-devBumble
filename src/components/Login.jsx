@@ -1,5 +1,5 @@
 import SignupForm from "./Signup";
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -7,10 +7,17 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { saveToken } from "../auth/authTokenStorage";
+import AuthContext from "../auth/context";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const authContext = useContext(AuthContext);
+
+  const togglePassword = () => setShowPassword((prev) => !prev);
 
   return (
     <Formik
@@ -36,37 +43,49 @@ const Login = () => {
             }
           );
 
-          navigate("/");
           console.log("Response ", res);
-          dispatch(addUser(res?.data.data));
+          // dispatch(addUser(res?.data.data));
+          saveToken(res?.data.token);
+          authContext.setUser(res?.data.data);
+          navigate("/");
         } catch (error) {
           console.error("Error login " + error);
         }
       }}
     >
-      <Form className="flex flex-col items-center justify-center space-y-2 border-1  border-black rounded-lg bg-base-200 w-full md:w-6/12 self-center mx-auto my-2 p-2">
-        <div className="flex flex-col items-start space-y-2 p-2 w-8/12 ">
+      <Form className="flex flex-col items-start justify-center space-y-5 border border-base-200 rounded-lg bg-base-200 w-full md:w-8/12 self-center mx-auto my-2 p-2 py-4">
+        <div className="flex flex-col items-start space-y-2 p-2 w-11/12 ">
           <label htmlFor="emailId">Email Address</label>
           <Field
             name="emailId"
             type="email"
-            className="w-full rounded-lg p-2 border"
+            className="w-full rounded-lg p-2 border border-base-200"
           />
           <ErrorMessage name="emailId" className="text-red-700" />
         </div>
-        <div className="flex flex-col items-start space-y-2 p-2 w-8/12 ">
+        <div className="flex flex-col items-start space-y-2 p-2 w-11/12 ">
           <label htmlFor="password">Password</label>
-          <Field
-            name="password"
-            type="password"
-            className="w-full rounded-lg p-2 border"
-          />
+          <div className="relative w-full">
+            <Field
+              name="password"
+              type={showPassword ? "text" : "password"}
+              className="w-full rounded-lg p-2 border border-base-200 pr-10"
+            />
+            <button
+              type="button"
+              onClick={togglePassword}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2"
+              tabIndex={-1}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
           <ErrorMessage name="password" className="text-red-700" />
         </div>
 
         <button
           type="submit"
-          className="w-48 p-2 m-2 bg-gray-700 text-white text-lg rounded-lg  "
+          className="w-48 p-2 m-2 bg-gray-700  text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg  border border-base-200 self-start  "
         >
           Login
         </button>

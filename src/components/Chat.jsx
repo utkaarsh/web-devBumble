@@ -40,8 +40,10 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
-    bottomRef?.current?.scrollIntoView({ behaviour: "smooth" });
     const socket = createSocketConnection();
+    if (messages?.length > 5)
+      bottomRef?.current?.scrollIntoView({ behaviour: "smooth" });
+
     if (messages.length > 0) {
       socket.emit("mark-as-seen", { userId, otherUserId });
     }
@@ -107,7 +109,7 @@ const Chat = () => {
   }, [userId, otherUserId]);
 
   return (
-    <div className="w-3/4 mx-auto border border-gray-600 m-5 h-[70vh] flex flex-col">
+    <div className="w-3/4 mx-auto border border-gray-600 m-5 min-h-[90vh] flex flex-col">
       <h1 className="p-5 border-b border-gray-600">Chat</h1>
 
       {/* display messages */}

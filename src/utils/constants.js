@@ -1,4 +1,4 @@
-import logo from "../../public/devBumble.png";
+import logo from "/devBumble.png";
 
 export const main_logo = logo;
 

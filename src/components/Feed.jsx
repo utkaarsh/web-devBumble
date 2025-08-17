@@ -18,7 +18,7 @@ const Feed = () => {
       );
       dispatch(getFeed(res?.data.data));
     } catch (error) {
-      console.error("Error bhai sahab feed me ", error);
+      console.error("Error bhai sahab feed me ", error.message);
     }
   };
 
