@@ -22,13 +22,14 @@ const Login = () => {
   return (
     <Formik
       initialValues={{
-        emailId: "brocklesnar@gmail.com",
-        password: "Passw0rd@123",
+        emailId: "",
+        password: "",
       }}
       validationSchema={Yup.object({
         emailId: Yup.string()
           .email("Invalid email address")
           .required("Required"),
+        password: Yup.string().required("Required"),
       })}
       onSubmit={async (values, { setSubmitting }) => {
         try {
@@ -53,13 +54,13 @@ const Login = () => {
         }
       }}
     >
-      <Form className="flex flex-col items-start justify-center space-y-5 border border-base-200 rounded-lg bg-base-200 w-full md:w-8/12 self-center mx-auto my-2 p-2 py-4">
+      <Form className="flex flex-col items-start justify-center space-y-5 border shadow-lg border-base-200 rounded-lg bg-base-200 w-full md:w-8/12 self-center mx-auto my-2 p-2 py-4">
         <div className="flex flex-col items-start space-y-2 p-2 w-11/12 ">
           <label htmlFor="emailId">Email Address</label>
           <Field
             name="emailId"
             type="email"
-            className="w-full rounded-lg p-2 border border-base-200"
+            className="w-full rounded-lg p-2 border border-base-200 focus:outline-none"
           />
           <ErrorMessage name="emailId" className="text-red-700" />
         </div>
@@ -69,7 +70,7 @@ const Login = () => {
             <Field
               name="password"
               type={showPassword ? "text" : "password"}
-              className="w-full rounded-lg p-2 border border-base-200 pr-10"
+              className="w-full rounded-lg p-2 border border-base-200 pr-10 focus:outline-none"
             />
             <button
               type="button"

@@ -56,7 +56,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="navbar bg-base-300 top-0 px-3">
+    <div className="navbar bg-base-300 top-0 px-3 font-geist">
       <div className="flex-1">
         <Link to="/" className=" text-xl font-bold uppercase">
           <div className="flex items-center space-x-2">
