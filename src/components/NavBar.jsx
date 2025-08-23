@@ -77,7 +77,7 @@ const NavBar = () => {
       >
         <div className="chat-image avatar">
           <div
-            className="w-10 rounded-full"
+            className="w-10 rounded-full border shadow-md"
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
             <img

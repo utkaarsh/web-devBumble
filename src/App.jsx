@@ -1,32 +1,32 @@
 import "./App.css";
 import React, { Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Body from "./components/Body";
-import Profile from "./components/Profile";
-import Login from "./components/Login";
-import Authentication from "./pages/Authentication";
 import { Provider } from "react-redux";
+
+import Body from "./components/Body";
+import Authentication from "./pages/Authentication";
 import appStore from "./utils/appStore";
-const Feed = React.lazy(() => import("./components/Feed"));
-import Connections from "./components/Connections";
-import Requests from "./components/Requests";
-import Chat from "./components/Chat";
-import SignupMultisteps from "./components/SignupMultiStep";
+
 import { decodeToken, getToken } from "./auth/authTokenStorage";
 import AuthContext from "./auth/context";
-import ProtectedRoute from "./custom/ProtectedRoutes";
+
+// Lazy imports for all heavy routes
+const Feed = React.lazy(() => import("./components/Feed"));
+const Profile = React.lazy(() => import("./components/Profile"));
+const Connections = React.lazy(() => import("./components/Connections"));
+const Requests = React.lazy(() => import("./components/Requests"));
+const Chat = React.lazy(() => import("./components/Chat"));
 
 function App() {
   const [user, setUser] = useState(null);
+
   const refreshToken = async () => {
     const token = await getToken();
     const validToken = decodeToken(token);
     if (!validToken) {
-      console.log("No token found ");
       setUser(null);
       return;
     }
-
     setUser(validToken?.user);
   };
 
@@ -38,30 +38,21 @@ function App() {
     <AuthContext.Provider value={{ user, setUser }}>
       <Provider store={appStore}>
         <BrowserRouter basename="/">
-          <Routes>
-            <Route path="/" element={<Body />}>
-              <Route
-                path="/"
-                element={
-                  user ? (
-                    <Suspense fallback={<div>Loading UserCard...</div>}>
-                      <Feed />
-                    </Suspense>
-                  ) : (
-                    <Authentication />
-                  )
-                }
-              />
-              {/* Protected Routes  */}
-              <Route element={<ProtectedRoute />}>
+          <Suspense fallback={<div className="p-4">Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Body />}>
+                <Route
+                  path="/"
+                  element={user ? <Feed /> : <Authentication />}
+                />
                 <Route path="/login" element={<Authentication />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/connections" element={<Connections />} />
                 <Route path="/requests" element={<Requests />} />
                 <Route path="/chat/:otherUserId" element={<Chat />} />
               </Route>
-            </Route>
-          </Routes>
+            </Routes>
+          </Suspense>
         </BrowserRouter>
       </Provider>
     </AuthContext.Provider>
