@@ -9,6 +9,12 @@ import appStore from "./utils/appStore";
 
 import { decodeToken, getToken } from "./auth/authTokenStorage";
 import AuthContext from "./auth/context";
+import ProtectedRoute from "./custom/ProtectedRoutes";
+import { Navigate } from "react-router-dom";
+
+function PrivateRoute({ children, user }) {
+  return user ? children : <Navigate to="/" replace />;
+}
 
 // Lazy imports for all heavy routes
 const Feed = React.lazy(() => import("./components/Feed"));
@@ -45,11 +51,41 @@ function App() {
                   path="/"
                   element={user ? <Feed /> : <Authentication />}
                 />
-                <Route path="/login" element={<Authentication />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/connections" element={<Connections />} />
-                <Route path="/requests" element={<Requests />} />
-                <Route path="/chat/:otherUserId" element={<Chat />} />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/login" element={<Authentication />} />
+                  <Route
+                    path="/profile"
+                    element={
+                      <PrivateRoute user={user}>
+                        <Profile />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/connections"
+                    element={
+                      <PrivateRoute user={user}>
+                        <Connections />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/requests"
+                    element={
+                      <PrivateRoute user={user}>
+                        <Requests />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/chat/:otherUserId"
+                    element={
+                      <PrivateRoute user={user}>
+                        <Chat />
+                      </PrivateRoute>
+                    }
+                  />
+                </Route>
               </Route>
             </Routes>
           </Suspense>

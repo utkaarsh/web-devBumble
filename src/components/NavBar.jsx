@@ -29,7 +29,6 @@ const NavBar = () => {
         dispatch(removeUser());
         deleteToken();
         authContext.setUser(null);
-        // navigate("/login");
       }
     } catch (error) {
       console.error("Logout error ", error.message);
