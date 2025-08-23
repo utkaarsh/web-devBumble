@@ -1,5 +1,5 @@
 import SignupForm from "./Signup";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -16,6 +16,15 @@ const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const authContext = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (errorMessage?.length > 0) {
+      setTimeout(() => setErrorMessage(""), 10000);
+    } else {
+      return;
+    }
+  }, [errorMessage]);
 
   const togglePassword = () => setShowPassword((prev) => !prev);
 
@@ -50,7 +59,8 @@ const Login = () => {
           authContext.setUser(res?.data.data);
           navigate("/");
         } catch (error) {
-          console.error("Error login " + error);
+          console.error("Error login " + error?.response?.data);
+          setErrorMessage(error?.response?.data?.message);
         }
       }}
     >
@@ -61,6 +71,7 @@ const Login = () => {
             name="emailId"
             type="email"
             className="w-full rounded-lg p-2 border border-base-200 focus:outline-none"
+            placeholder="johndoe@gmail.com"
           />
           <ErrorMessage name="emailId" className="text-red-700" />
         </div>
@@ -70,6 +81,7 @@ const Login = () => {
             <Field
               name="password"
               type={showPassword ? "text" : "password"}
+              placeholder="Password"
               className="w-full rounded-lg p-2 border border-base-200 pr-10 focus:outline-none"
             />
             <button
@@ -83,7 +95,11 @@ const Login = () => {
           </div>
           <ErrorMessage name="password" className="text-red-700" />
         </div>
-
+        {errorMessage && (
+          <div className="my-2 flex items-center justify-center text-[#E94141] font font-geistMono font-medium p-3">
+            {errorMessage}
+          </div>
+        )}
         <button
           type="submit"
           className="w-48 p-2 m-2 bg-gray-700  text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg  border border-base-200 self-start  "

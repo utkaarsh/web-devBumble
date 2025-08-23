@@ -14,6 +14,7 @@ import Chat from "./components/Chat";
 import SignupMultisteps from "./components/SignupMultiStep";
 import { decodeToken, getToken } from "./auth/authTokenStorage";
 import AuthContext from "./auth/context";
+import ProtectedRoute from "./custom/ProtectedRoutes";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -51,11 +52,14 @@ function App() {
                   )
                 }
               />
-              <Route path="/login" element={<Authentication />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/connections" element={<Connections />} />
-              <Route path="/requests" element={<Requests />} />
-              <Route path="/chat/:otherUserId" element={<Chat />} />
+              {/* Protected Routes  */}
+              <Route element={<ProtectedRoute />}>
+                <Route path="/login" element={<Authentication />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/connections" element={<Connections />} />
+                <Route path="/requests" element={<Requests />} />
+                <Route path="/chat/:otherUserId" element={<Chat />} />
+              </Route>
             </Route>
           </Routes>
         </BrowserRouter>

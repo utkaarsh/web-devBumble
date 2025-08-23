@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { BASE_URL } from "../utils/constants";
@@ -22,8 +22,16 @@ const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const totalSteps = 4;
   const [currentStep, setCurrentStep] = useState(1);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
+  useEffect(() => {
+    if (errorMessage?.length > 0) {
+      setTimeout(() => setErrorMessage(""), 10000);
+    } else {
+      return;
+    }
+  }, [errorMessage]);
+  const prevStep = () => setCurrentStep((prev) => prev - 1);
 
   const progress = (currentStep / totalSteps) * 100;
   const stepIcons = [
@@ -112,7 +120,11 @@ const SignupForm = () => {
               className="w-full rounded-lg p-2 border border-base-200 focus:outline-none"
               placeholder="John "
             />
-            <ErrorMessage name="firstName" />
+            <ErrorMessage
+              name="firstName"
+              component="div"
+              style={{ color: "red" }}
+            />
           </div>
 
           <div className="flex flex-col items-start space-y-2 p-2 w-6/12 ">
@@ -123,7 +135,11 @@ const SignupForm = () => {
               placeholder="Doe"
               className="w-full rounded-lg p-2 border border-base-200 focus:outline-none"
             />
-            <ErrorMessage name="lastName" />
+            <ErrorMessage
+              name="lastName"
+              component="div"
+              style={{ color: "red" }}
+            />
           </div>
         </div>
         <div className="flex flex-col items-start space-y-2 w-full p-2 ">
@@ -134,7 +150,11 @@ const SignupForm = () => {
             placeholder="johndoe@gmail.com"
             className="w-full rounded-lg p-2 border border-base-200 focus:outline-none"
           />
-          <ErrorMessage name="emailId" />
+          <ErrorMessage
+            name="emailId"
+            component="div"
+            style={{ color: "red" }}
+          />
         </div>
         <div className="flex flex-col items-start space-y-2 w-full p-2 ">
           <label htmlFor="password">Set Password</label>
@@ -154,7 +174,11 @@ const SignupForm = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
-          <ErrorMessage name="password" />
+          <ErrorMessage
+            name="password"
+            component="div"
+            style={{ color: "red" }}
+          />
         </div>
       </div>
     </div>,
@@ -170,7 +194,7 @@ const SignupForm = () => {
               className="w-11/12 rounded-lg p-2 border border-base-200 focus:outline-none"
               placeholder="32 "
             />
-            <ErrorMessage name="age" />
+            <ErrorMessage name="age" component="div" style={{ color: "red" }} />
           </div>
           <div className="flex flex-col items-start space-y-2 p-2 w-6/12 ">
             <label htmlFor="gender">Gender</label>
@@ -205,7 +229,7 @@ const SignupForm = () => {
             className="w-full rounded-lg p-2 border border-base-200 min-h-32 focus:outline-none"
             placeholder="Write in a small brief about yourself!!"
           />
-          <ErrorMessage name="about" />
+          <ErrorMessage name="about" component="div" style={{ color: "red" }} />
         </div>
       </div>
     </div>,
@@ -224,7 +248,11 @@ const SignupForm = () => {
             options={programmingLanguages}
           />
 
-          <ErrorMessage name="languages" />
+          <ErrorMessage
+            name="languages"
+            component="div"
+            style={{ color: "red" }}
+          />
         </div>
         <div className="flex flex-col items-start space-y-2 p-2 w-11/12 ">
           <label htmlFor="about">Experience</label>
@@ -240,7 +268,11 @@ const SignupForm = () => {
             <option value="lead">Lead/Principal (10+)</option>
             <option value="beginner">Student/Learning</option>
           </Field>
-          <ErrorMessage name="experience" />
+          <ErrorMessage
+            name="experience"
+            component="div"
+            style={{ color: "red" }}
+          />
         </div>
         <div className="flex flex-col items-start space-y-2 p-2 w-11/12 ">
           <label htmlFor="about" className="font-geist font-normal">
@@ -251,7 +283,11 @@ const SignupForm = () => {
           </p>
           <Field name="interests" component={ChipsInput} options={interests} />
 
-          <ErrorMessage name="interests" />
+          <ErrorMessage
+            name="interests"
+            component="div"
+            style={{ color: "red" }}
+          />
         </div>
       </div>
     </div>,
@@ -283,7 +319,7 @@ const SignupForm = () => {
           <ErrorMessage
             name="termsAccepted"
             component="div"
-            className="text-red-500 text-sm"
+            style={{ color: "red" }}
           />
 
           {/* Info Box */}
@@ -398,6 +434,8 @@ const SignupForm = () => {
           termsAccepted: false,
         }}
         validationSchema={stepSchemas[currentStep - 1]} // 👈 step-wise validation
+        validateOnChange={false} // 👈 only validate on submit
+        validateOnBlur={false} // 👈 no blur validation
         onSubmit={async (values, { setSubmitting }) => {
           console.log("Hell yeah", values);
           if (currentStep < totalSteps) {
@@ -420,7 +458,8 @@ const SignupForm = () => {
             navigate("/profile");
             dispatch(addUser(res?.data.data));
           } catch (error) {
-            console.error("Error login " + error);
+            console.error("Error login : ", error?.response?.data?.message);
+            setErrorMessage(error?.response?.data?.message);
           }
         }}
       >
@@ -432,9 +471,15 @@ const SignupForm = () => {
               </motion.div>
             </AnimatePresence>
             {/* Navigation Buttons */}
+            {errorMessage && (
+              <div className="my-2 flex items-center justify-center text-[#E94141] font font-geistMono font-medium p-3">
+                {errorMessage}
+              </div>
+            )}
             <div className="flex justify-between items-center mt-6 px-6">
               <button
                 onClick={prevStep}
+                type="button"
                 disabled={currentStep === 1}
                 className="px-4 py-2 bg-gray-300 text-black rounded disabled:opacity-50"
               >
@@ -442,7 +487,6 @@ const SignupForm = () => {
               </button>
               <button
                 type="submit" // 👈 always submit (Formik handles step vs final)
-                disabled={!isValid || !dirty}
                 className="px-4 py-2 bg-amber-500 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {currentStep === totalSteps ? "Sign Up" : "Next"}
