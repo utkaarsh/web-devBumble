@@ -4,6 +4,12 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { getFeed } from "../utils/feedSlice";
 import UserCard from "./UserCard";
+import {
+  FaMinus,
+  FaPlus,
+  FaRegThumbsDown,
+  FaRegThumbsUp,
+} from "react-icons/fa";
 let DEFAULT_PAGE = 1;
 let DEFAULT_LIMIT = 10;
 
@@ -35,8 +41,20 @@ const Feed = () => {
 
   return (
     feed && (
-      <div className="flex justify-center items-center">
+      <div className="flex flex-col justify-between items-center relative min-h-screen">
         <UserCard user={feed[0]} />
+        <div className="flex items-start pt-1 justify-around w-full bg-base-300 bottom-0 absolute h-36">
+          <div className="cursor-pointer flex items-center justify-center space-x-4 w-14 rounded-full h-14 border border-black bg-base-100">
+            <span className="">
+              <FaRegThumbsDown />{" "}
+            </span>
+          </div>
+          <div className="cursor-pointer flex items-center justify-center space-x-4 w-14 rounded-full h-14 border border-black bg-base-100">
+            <span className="">
+              <FaRegThumbsUp />
+            </span>
+          </div>
+        </div>
       </div>
     )
   );

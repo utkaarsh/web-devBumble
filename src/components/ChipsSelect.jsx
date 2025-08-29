@@ -1,4 +1,14 @@
-const ChipsSelect = ({ options = [], multiple = true, value, onChange }) => {
+const ChipsSelect = ({
+  options = [],
+  multiple = true,
+  value,
+  onChange,
+  // ✅ new props with defaults
+  activeBg = "bg-gradient-to-r from-amber-400 to-orange-400",
+  activeText = "text-white",
+  inactiveBg = "bg-gray-200 hover:bg-gray-400",
+  inactiveText = "text-[#7C7C7C] hover:text-gray-200",
+}) => {
   const toggleChip = (chip) => {
     if (multiple) {
       const isAlreadyOn = value?.includes(chip);
@@ -21,13 +31,13 @@ const ChipsSelect = ({ options = [], multiple = true, value, onChange }) => {
           <div
             key={idx}
             onClick={() => toggleChip(item)}
-            className={`cursor-pointer px-2 py-1 rounded-full transition 
-              duration-200 hover:scale-110
+            className={`cursor-pointer px-2 py-1 rounded-full transition duration-200 hover:scale-110
               ${
                 isActive
-                  ? "bg-gradient-to-r from-amber-400 to-orange-400 text-white shadow-lg"
-                  : "bg-gray-200 text-[#7C7C7C] hover:bg-gray-400 hover:text-gray-200"
-              }`}
+                  ? `${activeBg} ${activeText} shadow-lg`
+                  : `${inactiveBg} ${inactiveText}`
+              }
+            `}
           >
             {item}
           </div>
