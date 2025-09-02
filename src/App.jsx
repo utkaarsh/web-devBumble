@@ -29,11 +29,14 @@ function App() {
   const refreshToken = async () => {
     const token = await getToken();
     const validToken = decodeToken(token);
-    if (!validToken) {
+    // current timestamp in seconds
+    const now = Math.floor(Date.now() / 1000);
+    if (validToken.exp > now) {
+      setUser(validToken?.user);
+    } else {
+      console.log("Session expired");
       setUser(null);
-      return;
     }
-    setUser(validToken?.user);
   };
 
   useEffect(() => {

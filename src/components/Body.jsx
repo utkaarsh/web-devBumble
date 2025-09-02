@@ -2,9 +2,7 @@ import React, { useContext, useEffect } from "react";
 import NavBar from "./NavBar";
 import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
-import axios from "axios";
-import { BASE_URL } from "../utils/constants";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import AuthContext from "../auth/context";
 
@@ -16,12 +14,7 @@ const Body = () => {
 
   const fetchUSer = async () => {
     try {
-      if (!user) {
-        console.log("====================================");
-        console.log("RETURN TICKET");
-        console.log("====================================");
-        return;
-      }
+      if (!user) return;
       dispatch(addUser(user));
       navigate("/");
     } catch (error) {
