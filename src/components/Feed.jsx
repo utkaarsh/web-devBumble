@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { getFeed } from "../utils/feedSlice";
+import { getFeed, removeUserFromFeed } from "../utils/feedSlice";
 import UserCard from "./UserCard";
 import {
   FaMinus,
@@ -27,6 +27,21 @@ const Feed = () => {
       console.error("Error bhai sahab feed me ", error.message);
     }
   };
+  const handleSendRequest = async (id, status) => {
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/request/send/${status}/${id}`,
+        {},
+        { withCredentials: true }
+      );
+      dispatch(removeUserFromFeed(id));
+      console.log("response = ", res.data.data);
+      return 1;
+    } catch (error) {
+      console.error("Send Request Error ", error.message);
+    }
+    return;
+  };
 
   useEffect(() => {
     getUserFeed();
@@ -43,15 +58,21 @@ const Feed = () => {
     feed && (
       <div className="flex flex-col justify-between items-center relative min-h-screen">
         <UserCard user={feed[0]} />
-        <div className="flex items-start pt-1 justify-around w-full bg-base-300 bottom-0 absolute h-36">
-          <div className="cursor-pointer flex items-center justify-center space-x-4 w-14 rounded-full h-14 border border-black bg-base-100">
+        <div className="flex items-center pt-1 justify-around w-full bg-base-300 bottom-0 pb-16 absolute h-36">
+          <div
+            onClick={() => handleSendRequest(feed[0]?._id, "interested")}
+            className="cursor-pointer transition duration-200 hover:scale-110 hover:bg-red-700 flex items-center justify-center space-x-4 w-14 rounded-full h-14 bg-base-100"
+          >
             <span className="">
-              <FaRegThumbsDown />{" "}
+              <FaRegThumbsDown className="h-8 w-8" />{" "}
             </span>
           </div>
-          <div className="cursor-pointer flex items-center justify-center space-x-4 w-14 rounded-full h-14 border border-black bg-base-100">
+          <div
+            onClick={() => handleSendRequest(feed[0]?._id, "ignored")}
+            className="cursor-pointer transition duration-200 hover:scale-110 hover:bg-green-500 flex items-center justify-center space-x-4 w-14 rounded-full h-14 bg-base-100"
+          >
             <span className="">
-              <FaRegThumbsUp />
+              <FaRegThumbsUp className="h-8 w-8" />
             </span>
           </div>
         </div>

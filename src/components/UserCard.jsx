@@ -10,8 +10,18 @@ import { LuStar } from "react-icons/lu";
 import ChipsSelect from "./ChipsSelect";
 
 const UserCard = ({ user }) => {
-  const { _id, firstName, lastName, photoUrl, age, about } = user;
-  console.log("USER ID ", _id);
+  const {
+    _id,
+    firstName,
+    lastName,
+    photoUrl,
+    age,
+    about,
+    experience,
+    interests,
+    skills,
+  } = user;
+  console.log("USER ", user);
   const dispatch = useDispatch();
 
   const handleSendRequest = async (id, status) => {
@@ -58,15 +68,15 @@ const UserCard = ({ user }) => {
           </div>
 
           <div className="flex items-center space-x-3">
-            <FaBriefcase className="w-4 h-4" /> <p>Software Engineer at Meta</p>
+            <FaBriefcase className="w-4 h-4" /> <p>{experience}</p>
           </div>
         </div>
       </div>
 
       {/* Second Half Right Side */}
 
-      <div className="w-6/12 relative overflow-y-scroll  p-2 py-4 h-[32rem]">
-        <div className="flex flex-col w-full space-y-10 flex-1 pl-3 items-start min-h-[35rem]">
+      <div className="w-6/12  overflow-y-scroll  p-2 py-4 h-[32rem]">
+        <div className="flex relative flex-col w-full space-y-10 flex-1 pl-3 items-start min-h-[35rem]">
           {/* About  */}
           <div className="flex flex-col space-y-2">
             <div className="flex items-center space-x-3">
@@ -75,11 +85,7 @@ const UserCard = ({ user }) => {
               </span>
               <p className="">About</p>
             </div>
-            <h1 className="text-start  ">
-              {about +
-                "Full-stack developer passionate about React and Node.js. Love building scalable web apps and contributing to open source. Coffee enthusiast and weekend hiker! 🚀" +
-                "Backend architect who loves solving complex problems with elegant solutions. Microservices enthusiast and DevOps advocate. Guitar player in my free time!"}
-            </h1>
+            <h1 className="text-start  ">{about}</h1>
           </div>
           <div className="flex flex-col space-y-2">
             <div className="flex items-center space-x-3">
@@ -88,19 +94,8 @@ const UserCard = ({ user }) => {
               </span>
               <p className="">Tech Stack</p>
             </div>
-            <div className="w-9/12 flex flex-wrap">
-              <ChipsSelect
-                options={[
-                  "Java",
-                  "Python",
-                  "JavaScript",
-                  "C++",
-                  "SQL",
-                  "React",
-                  "Node.js",
-                ]}
-                multiple
-              />
+            <div className="w-11/12 flex flex-wrap">
+              <ChipsSelect options={skills} multiple />
             </div>
           </div>
           <div className="flex flex-col space-y-2">
@@ -110,25 +105,11 @@ const UserCard = ({ user }) => {
               </span>{" "}
               <p>Interest</p>
             </div>
-            <div className="w-9/12 flex flex-wrap">
-              <ChipsSelect
-                options={[
-                  "Java",
-                  "Python",
-                  "JavaScript",
-                  "C++",
-                  "SQL",
-                  "React",
-                  "Node.js",
-                  "REST API",
-                  "System Design",
-                  "Next Js",
-                ]}
-                multiple
-              />
+            <div className="w-11/12 flex flex-wrap">
+              <ChipsSelect options={interests} multiple />
             </div>
           </div>
-          <div className=" flex justify-around overflow-hidden z-40 w-full bottom-1 border-t border-gray-50 pt-4  space-x-2">
+          <div className=" flex justify-between overflow-hidden w-11/12 absolute z-40 bottom-1 border-t border-gray-50   space-x-2">
             <button
               onClick={() => handleSendRequest(_id, "interested")}
               className="rounded-md px-2 py-1 text-center bg-[#E94141] text-white"

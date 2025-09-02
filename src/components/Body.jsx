@@ -42,9 +42,11 @@ const Body = () => {
       <div className="min-h-screen overflow-hidden">
         <Outlet />
       </div>
-      <div className=" sticky ">
-        <Footer />
-      </div>
+      {!user && (
+        <div className=" sticky ">
+          <Footer />
+        </div>
+      )}
     </div>
   );
 };
