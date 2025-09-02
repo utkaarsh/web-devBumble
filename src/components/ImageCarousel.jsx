@@ -11,21 +11,22 @@ const carouselData = [
   },
   {
     image:
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=600&fit=crop&crop=faces",
-    tagline: "Debug your love life",
+      "https://images.unsplash.com/photo-1595617795501-9661aafda72a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+
+    tagline: "The real vibe coding ",
     subtitle: "Find someone who understands your late-night coding sessions",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&h=600&fit=crop&crop=faces",
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=600&fit=crop&crop=faces",
     tagline: "Pair programming for life",
     subtitle:
       "Meet developers who complement your skills and complete your heart",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop&crop=faces",
-    tagline: "Stack overflow for relationships",
+      "https://images.unsplash.com/photo-1584014981626-38adf5fca8ff?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    tagline: "Stack overflow for friendships",
     subtitle: "Get answers to all your dating questions from fellow developers",
   },
 ];
@@ -56,8 +57,8 @@ export function ImageCarousel() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center text-gray-200 px-8 max-w-lg">
-        <h1 className="mb-4 animate-fade-in">
+      <div className="relative z-10 text-center text-gray-200 px-8 max-w-lg font-geist">
+        <h1 className="mb-2 animate-fade-in text-2xl">
           {carouselData[currentIndex].tagline}
         </h1>
         <p className="text-lg opacity-90 animate-fade-in">

@@ -29,7 +29,6 @@ const NavBar = () => {
         dispatch(removeUser());
         deleteToken();
         authContext.setUser(null);
-        // navigate("/login");
       }
     } catch (error) {
       console.error("Logout error ", error.message);
@@ -56,11 +55,15 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="navbar bg-base-300 top-0 px-3">
+    <div className="navbar bg-base-300 top-0 px-3 font-geist">
       <div className="flex-1">
-        <Link to="/" className=" text-xl font-bold uppercase">
-          <div className="flex items-center space-x-2">
-            <img src={main_logo} alt="devBumble-logo" className="h-10 w-10" />
+        <Link to="/" className=" text-4xl font-bold uppercase">
+          <div className="flex items-center space-x-4">
+            <img
+              src={main_logo}
+              alt="devBumble-logo"
+              className="h-8 w-9 shadow-lg"
+            />
             <p>Dev Bumble</p>
           </div>
         </Link>
@@ -73,7 +76,7 @@ const NavBar = () => {
       >
         <div className="chat-image avatar">
           <div
-            className="w-10 rounded-full"
+            className="w-10 rounded-full border shadow-md"
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
             <img

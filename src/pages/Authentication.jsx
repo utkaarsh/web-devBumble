@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import SignupForm from "../components/Signup";
 import Login from "../components/Login";
 import { ImageCarousel } from "../components/ImageCarousel";
-import Progressbar from "../components/Progressbar";
-import SignupMultisteps from "../components/SignupMultiStep";
 
 const Authentication = () => {
   const [isLoginPage, setIsLoginPage] = useState(false);
@@ -36,23 +34,6 @@ const Authentication = () => {
             Click here to {isLoginPage ? "Signup" : "Login"}
           </p>
         </div>
-
-        {/* <div className="flex items-center justify-between w-5/6 space-x-5 mx-auto">
-          <button
-            className="p-2 text-black bg-white text-lg"
-            onClick={() => setCount(count - 5)}
-          >
-            -
-          </button>
-          <p>Progress {count}%</p>
-          <button
-            className="p-2 text-black bg-white text-lg"
-            onClick={() => setCount(count + 5)}
-          >
-            +
-          </button>
-        </div> */}
-        {/* <Progressbar progress={count} /> */}
 
         {isLoginPage ? <Login /> : <SignupForm />}
       </div>
