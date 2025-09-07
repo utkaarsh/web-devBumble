@@ -43,15 +43,15 @@ const UserCard = ({ user }) => {
   return (
     <div className=" bg-base-200 w-8/12  rounded-lg overflow-hidden  shadow-xl my-10 flex items-start">
       <div className="w-6/12 bg-gray-500">
-        <div className="w-full min-h-[25rem] relative">
-          <div className="absolute   inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        <div className="w-full h-[29rem] relative">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
           <img
             src={
               photoUrl ||
               "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
             }
             alt="Profile Photo"
-            className="w-full bg-cover"
+            className="w-full  bg-cover"
           />
         </div>
 
@@ -75,7 +75,7 @@ const UserCard = ({ user }) => {
 
       {/* Second Half Right Side */}
 
-      <div className="w-6/12  overflow-y-scroll  p-2 py-4 h-[32rem]">
+      <div className="w-6/12  overflow-y-scroll no-scrollbar  p-2 py-4 h-[29rem]">
         <div className="flex relative flex-col w-full space-y-10 flex-1 pl-3 items-start min-h-[35rem]">
           {/* About  */}
           <div className="flex flex-col space-y-2">
@@ -83,7 +83,7 @@ const UserCard = ({ user }) => {
               <span className="text-yellow-500">
                 <LuStar className="w-4 h-4  stroke-current" />
               </span>
-              <p className="">About</p>
+              <p className="font-medium">About</p>
             </div>
             <h1 className="text-start  ">{about}</h1>
           </div>
@@ -92,7 +92,7 @@ const UserCard = ({ user }) => {
               <span className="text-yellow-500">
                 <FaCode className="w-4 h-4  stroke-current" />
               </span>
-              <p className="">Tech Stack</p>
+              <p className="font-medium">Tech Stack</p>
             </div>
             <div className="w-11/12 flex flex-wrap">
               <ChipsSelect options={skills} multiple />
@@ -103,7 +103,7 @@ const UserCard = ({ user }) => {
               <span className="text-yellow-500">
                 <FaRegStar className="w-4 h-4" />
               </span>{" "}
-              <p>Interest</p>
+              <p className="font-medium">Interest</p>
             </div>
             <div className="w-11/12 flex flex-wrap">
               <ChipsSelect options={interests} multiple />

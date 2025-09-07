@@ -23,7 +23,7 @@ const ChipsSelect = ({
   };
 
   return (
-    <div className="flex flex-wrap gap-2 w-full font-geistMono font-light">
+    <div className="flex flex-wrap gap-4 w-full font-geistMono font-light">
       {options.map((item, idx) => {
         const isActive = multiple ? value?.includes(item) : value === item;
 
