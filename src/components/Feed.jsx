@@ -56,17 +56,19 @@ const Feed = () => {
         <div className="flex items-center pt-1 justify-around w-full bg-base-300 bottom-0 pb-16 absolute h-36">
           <div
             onClick={() => handleSendRequest(feed[0]?._id, "interested")}
-            className="cursor-pointer shadow-lg transition duration-200 hover:scale-110 hover:border-2 hover:border-red-700 hover:text-red-700 flex items-center justify-center space-x-4 w-14 rounded-full h-14 bg-base-100"
+            className="   tooltip tooltip-top flex items-center justify-center space-x-4 w-6/12  h-16 "
+            data-tip="Nope"
           >
-            <span className="">
+            <span className="bg-base-100 cursor-pointer shadow-lg transition duration-200 hover:scale-110 hover:border-2 hover:border-red-700 hover:text-red-700 p-3 rounded-full ">
               <GrDislike className="h-6 w-6" />{" "}
             </span>
           </div>
           <div
             onClick={() => handleSendRequest(feed[0]?._id, "ignored")}
-            className="cursor-pointer shadow-lg transition duration-200 hover:scale-110 hover:border-2 hover:border-green-500 hover:text-green-500 flex items-center justify-center space-x-4 w-14 rounded-full h-14 bg-base-100"
+            className="  p-2  flex items-center justify-center space-x-4 w-6/12  h-16 tooltip tooltip-top"
+            data-tip="hell yeah"
           >
-            <span className="">
+            <span className=" bg-base-100 cursor-pointer shadow-lg transition duration-200 hover:scale-110 hover:border-2 hover:border-green-500 hover:text-green-500 p-3  rounded-full">
               <GrLike className="h-6 w-6" />
             </span>
           </div>

@@ -55,20 +55,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <div className="navbar bg-base-300 top-0 px-3 font-geist">
-      <div className="flex-1">
-        <Link to="/" className=" text-4xl font-bold uppercase">
-          <div className="flex items-center space-x-4">
-            <img
-              src={main_logo}
-              alt="devBumble-logo"
-              className="h-8 w-9 shadow-lg"
-            />
-            <p>Dev Bumble</p>
-          </div>
-        </Link>
-      </div>
-
+    <div className="navbar flex w-full items-center justify-between bg-base-300 top-0 px-3 font-geist">
       {/* Right side profile + dropdown */}
       <div
         className={`flex-none cursor-pointer relative ${!user && "hidden"}`}
@@ -90,7 +77,7 @@ const NavBar = () => {
         </div>
 
         {dropdownOpen && (
-          <div className="absolute right-0 top-12 w-48 bg-base-300  shadow-lg rounded-lg py-2 z-50">
+          <div className="absolute left-0 top-12 w-48 bg-base-300  shadow-lg rounded-lg py-2 z-50">
             <button
               onClick={() => handleRouting("profile")}
               className="block w-full text-left px-4 py-2 hover:bg-base-100"
@@ -117,6 +104,20 @@ const NavBar = () => {
             </button>
           </div>
         )}
+      </div>
+
+      <div className="self-end right-0">
+        <Link to="/" className=" text-4xl font-bold uppercase">
+          <div className="flex items-center space-x-4">
+            <p>Dev's Bumble</p>
+
+            <img
+              src={main_logo}
+              alt="devBumble-logo"
+              className="h-8 w-9 shadow-lg"
+            />
+          </div>
+        </Link>
       </div>
     </div>
   );

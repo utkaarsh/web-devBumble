@@ -109,18 +109,18 @@ const UserCard = ({ user }) => {
               <ChipsSelect options={interests} multiple />
             </div>
           </div>
-          <div className=" flex justify-between overflow-hidden w-11/12 absolute z-40 bottom-1 border-t border-gray-50   space-x-2">
+          <div className=" flex justify-between overflow-hidden w-11/12 absolute z-40 bottom-1 border-t border-gray-50 pt-4  space-x-2">
             <button
               onClick={() => handleSendRequest(_id, "interested")}
               className="rounded-md px-2 py-1 text-center bg-[#E94141] text-white"
             >
-              Interested
+              Hold on
             </button>
             <button
               onClick={() => handleSendRequest(_id, "ignored")}
               className="rounded-md px-2 py-1 text-center bg-[#7c7c7c] text-white"
             >
-              Ignore
+              Maybe later
             </button>
           </div>
         </div>
