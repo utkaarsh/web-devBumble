@@ -48,9 +48,9 @@ const EditProfile = ({ user }) => {
 
   return (
     <>
-      <div className="flex space-x-5 px-10 my-10 ">
-        <div className="flex justify-center my-10">
-          <div className="card bg-base-300 w-[30rem] shadow-xl">
+      <div className="flex w-full h-full px-10  ">
+        <div className="flex justify-center my-10 ">
+          <div className="card bg-base-300 w-[30rem] h-[80%] overflow-y-scroll no-scrollbar shadow-xl ">
             <div className="card-body">
               <h2 className="card-title justify-center">Edit Profile</h2>
               <div>
@@ -130,7 +130,7 @@ const EditProfile = ({ user }) => {
             </div>
           </div>
         </div>
-        <div className="flex items-start justify-center ">
+        <div className="flex items-start justify-center">
           <UserCard
             user={{
               firstName,

@@ -51,29 +51,31 @@ const Feed = () => {
 
   return (
     feed && (
-      <div className="flex flex-col justify-between items-center relative min-h-screen">
-        <UserCard user={feed[0]} />
-        <div className="flex items-center pt-1 justify-around w-full bg-base-300 bottom-0 pb-16 absolute h-36">
+      <div className="flex flex-col justify-between  items-center relative h-full px-2">
+        <div className="h-[93%] w-full flex justify-center">
+          <UserCard user={feed[0]} />
+        </div>
+        <div className="flex items-center  justify-around  bg-base-300  w-4/12 h-16  bottom-0 absolute  rounded-lg">
           <div
-            className="   tooltip tooltip-top flex items-center justify-center space-x-4 w-6/12  h-16 "
+            className="tooltip tooltip-top flex items-center justify-center space-x-4 w-6/12   "
             data-tip="Nope"
           >
             <span
               onClick={() => handleSendRequest(feed[0]?._id, "interested")}
               className="bg-base-100 cursor-pointer shadow-lg transition duration-200 hover:scale-110 hover:border-2 hover:border-red-700 hover:text-red-700 p-3 rounded-full "
             >
-              <GrDislike className="h-6 w-6" />{" "}
+              <GrDislike className="h-4 w-4" />{" "}
             </span>
           </div>
           <div
-            className="  p-2  flex items-center justify-center space-x-4 w-6/12  h-16 tooltip tooltip-top"
-            data-tip="hell yeah"
+            className="  p-2  flex items-center justify-center space-x-4 w-6/12   tooltip tooltip-top"
+            data-tip="Yep"
           >
             <span
               onClick={() => handleSendRequest(feed[0]?._id, "ignored")}
               className=" bg-base-100 cursor-pointer shadow-lg transition duration-200 hover:scale-110 hover:border-2 hover:border-green-500 hover:text-green-500 p-3  rounded-full"
             >
-              <GrLike className="h-6 w-6" />
+              <GrLike className="h-4 w-4" />
             </span>
           </div>
         </div>

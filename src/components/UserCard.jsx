@@ -41,9 +41,9 @@ const UserCard = ({ user }) => {
   };
 
   return (
-    <div className=" bg-base-200 w-8/12  rounded-lg overflow-hidden  shadow-xl my-10 flex items-start">
+    <div className=" bg-base-200 w-9/12  rounded-lg overflow-hidden shadow-xl my-10 flex items-start">
       <div className="w-6/12 bg-gray-500">
-        <div className="w-full h-[29rem] relative">
+        <div className="w-full h-5/6 relative">
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
           <img
             src={
@@ -51,13 +51,13 @@ const UserCard = ({ user }) => {
               "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
             }
             alt="Profile Photo"
-            className="w-full  bg-cover"
+            className="w-full   bg-cover"
           />
         </div>
 
         {/* Name Card (Basic Info)  */}
 
-        <div className=" -mt-36 ml-6 p-2 absolute  text-white flex flex-col items-start space-y-2">
+        <div className=" -mt-48 ml-6 p-2 absolute  text-white flex flex-col items-start space-y-2">
           <h2 className="card-title font-semibold text-2xl ">
             {firstName + " " + lastName}, {age}
           </h2>
@@ -109,7 +109,7 @@ const UserCard = ({ user }) => {
               <ChipsSelect options={interests} multiple />
             </div>
           </div>
-          <div className=" flex justify-between overflow-hidden w-11/12 absolute z-40 bottom-1 border-t border-gray-50 pt-4  space-x-2">
+          {/* <div className=" flex justify-between overflow-hidden w-11/12 absolute z-40 bottom-1 border-t border-gray-50 pt-4  space-x-2">
             <button
               onClick={() => handleSendRequest(_id, "interested")}
               className="rounded-md px-2 py-1 text-center bg-[#E94141] text-white"
@@ -122,7 +122,7 @@ const UserCard = ({ user }) => {
             >
               Maybe later
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
