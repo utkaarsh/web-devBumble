@@ -31,8 +31,8 @@ const Login = () => {
   return (
     <Formik
       initialValues={{
-        emailId: "",
-        password: "",
+        emailId: "sandra.garcia83@example.in",
+        password: "hitler123",
       }}
       validationSchema={Yup.object({
         emailId: Yup.string()
@@ -53,7 +53,6 @@ const Login = () => {
             }
           );
 
-          console.log("Response ", res);
           // dispatch(addUser(res?.data.data));
           saveToken(res?.data.token);
           authContext.setUser(res?.data.data);

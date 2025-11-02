@@ -30,7 +30,6 @@ const Feed = () => {
         { withCredentials: true }
       );
       dispatch(removeUserFromFeed(id));
-      console.log("response = ", res.data.data);
       return 1;
     } catch (error) {
       console.error("Send Request Error ", error.message);
@@ -40,7 +39,6 @@ const Feed = () => {
 
   useEffect(() => {
     getUserFeed();
-    console.log("Feed data : ", feed);
   }, []);
   if (feed?.length < 1)
     return (
@@ -51,8 +49,8 @@ const Feed = () => {
 
   return (
     feed && (
-      <div className="flex flex-col justify-between  items-center relative h-full px-2">
-        <div className="h-[93%] w-full flex justify-center">
+      <div className="flex overflow-y-auto flex-col justify-between  items-center relative h-full px-2">
+        <div className=" w-full flex justify-center  relative">
           <UserCard user={feed[0]} />
         </div>
         <div className="flex items-center  justify-around  bg-base-300  w-4/12 h-16  bottom-0 absolute  rounded-lg">

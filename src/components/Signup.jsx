@@ -437,7 +437,6 @@ const SignupForm = () => {
         validateOnChange={false} // 👈 only validate on submit
         validateOnBlur={false} // 👈 no blur validation
         onSubmit={async (values, { setSubmitting }) => {
-          console.log("Hell yeah", values);
           if (currentStep < totalSteps) {
             setCurrentStep((prev) => prev + 1); // 👈 Move forward instead of submit
             return;

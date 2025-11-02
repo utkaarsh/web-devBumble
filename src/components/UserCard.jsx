@@ -21,7 +21,6 @@ const UserCard = ({ user }) => {
     interests,
     skills,
   } = user;
-  console.log("USER ", user);
   const dispatch = useDispatch();
 
   const handleSendRequest = async (id, status) => {
@@ -32,7 +31,6 @@ const UserCard = ({ user }) => {
         { withCredentials: true }
       );
       dispatch(removeUserFromFeed(id));
-      console.log("response = ", res.data.data);
       return 1;
     } catch (error) {
       console.error("Send Request Error ", error.message);
@@ -41,10 +39,11 @@ const UserCard = ({ user }) => {
   };
 
   return (
-    <div className=" bg-base-200 w-9/12  rounded-lg overflow-hidden shadow-xl my-10 flex items-start">
-      <div className="w-6/12 bg-gray-500">
-        <div className="w-full h-5/6 relative">
+    <div className="max-w-7xl  rounded-lg overflow-hidden shadow-xl my-10  grid grid-cols-1 lg:grid-cols-2 w-full h-[70vh] m-4 bg-base-300">
+      <div className=" relative overflow-hidden">
+        <div className="w-full  relative">
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
           <img
             src={
               photoUrl ||
@@ -57,7 +56,7 @@ const UserCard = ({ user }) => {
 
         {/* Name Card (Basic Info)  */}
 
-        <div className=" -mt-48 ml-6 p-2 absolute  text-white flex flex-col items-start space-y-2">
+        <div className=" bottom-8 z-50 ml-6 p-2 absolute  text-white flex flex-col items-start space-y-2">
           <h2 className="card-title font-semibold text-2xl ">
             {firstName + " " + lastName}, {age}
           </h2>
@@ -75,8 +74,8 @@ const UserCard = ({ user }) => {
 
       {/* Second Half Right Side */}
 
-      <div className="w-6/12  overflow-y-scroll no-scrollbar  p-2 py-4 h-[29rem]">
-        <div className="flex relative flex-col w-full space-y-10 flex-1 pl-3 items-start min-h-[35rem]">
+      <div className="overflow-y-auto no-scrollbar  p-2 py-4 ">
+        <div className="flex relative flex-col w-full space-y-10 flex-1 pl-3  items-start ">
           {/* About  */}
           <div className="flex flex-col space-y-2">
             <div className="flex items-center space-x-3">
