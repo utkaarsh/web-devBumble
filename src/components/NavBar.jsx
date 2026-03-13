@@ -61,13 +61,12 @@ const NavBar = () => {
       <div className="self-end right-0">
         <Link to="/" className=" text-4xl font-bold uppercase">
           <div className="flex items-center space-x-4">
-            <p>Dev's Bumble</p>
-
             <img
               src={main_logo}
               alt="devBumble-logo"
               className="h-8 w-9 shadow-lg"
             />
+            <p>Dev Bumble</p>
           </div>
         </Link>
       </div>
