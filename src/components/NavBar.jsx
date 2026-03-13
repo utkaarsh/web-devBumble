@@ -22,7 +22,7 @@ const NavBar = () => {
       const res = await axios.post(
         BASE_URL + "/logout",
         {},
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       if (res.data) {

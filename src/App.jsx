@@ -27,14 +27,21 @@ function App() {
   const [user, setUser] = useState(null);
 
   const refreshToken = async () => {
-    const token = await getToken();
-    const validToken = decodeToken(token);
-    // current timestamp in seconds
-    const now = Math.floor(Date.now() / 1000);
-    if (validToken.exp > now) {
-      setUser(validToken?.user);
-    } else {
-      console.log("Session expired");
+    try {
+      const token = getToken(); // localStorage — no await needed
+      if (!token) return;
+
+      const validToken = decodeToken(token);
+      if (!validToken) return;
+
+      const now = Math.floor(Date.now() / 1000);
+      if (validToken.exp > now) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`; // ← add this
+        setUser(validToken?.user);
+      } else {
+        setUser(null);
+      }
+    } catch (err) {
       setUser(null);
     }
   };

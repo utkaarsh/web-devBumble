@@ -50,11 +50,12 @@ const Login = () => {
             },
             {
               withCredentials: true,
-            }
+            },
           );
-
+          const token = res?.data.token;
           // dispatch(addUser(res?.data.data));
-          saveToken(res?.data.token);
+          saveToken(token);
+          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
           authContext.setUser(res?.data.data);
           navigate("/");
         } catch (error) {
