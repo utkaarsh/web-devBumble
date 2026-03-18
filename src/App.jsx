@@ -11,6 +11,8 @@ import { decodeToken, getToken } from "./auth/authTokenStorage";
 import AuthContext from "./auth/context";
 import ProtectedRoute from "./custom/ProtectedRoutes";
 import { Navigate } from "react-router-dom";
+import axios from "axios";
+import { BASE_URL } from "./utils/constants";
 
 function PrivateRoute({ children, user }) {
   return user ? children : <Navigate to="/" replace />;
@@ -46,8 +48,23 @@ function App() {
     }
   };
 
+  const revokeServer = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/hello`, {
+        withCredentials: true,
+      });
+      console.log("Hello world:", res.data);
+    } catch (error) {
+      console.log("Hello world");
+    }
+  };
+
   useEffect(() => {
     refreshToken();
+  }, []);
+
+  useEffect(() => {
+    revokeServer();
   }, []);
 
   return (

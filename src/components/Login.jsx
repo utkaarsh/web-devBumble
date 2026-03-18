@@ -17,6 +17,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const authContext = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (errorMessage?.length > 0) {
@@ -42,6 +43,7 @@ const Login = () => {
       })}
       onSubmit={async (values, { setSubmitting }) => {
         try {
+          setLoading(true);
           const res = await axios.post(
             `${BASE_URL}/login`,
             {
@@ -61,6 +63,10 @@ const Login = () => {
         } catch (error) {
           console.error("Error login " + error?.response?.data);
           setErrorMessage(error?.response?.data?.message);
+          setLoading(false);
+        } finally {
+          setLoading(false);
+          setSubmitting(false);
         }
       }}
     >
@@ -104,7 +110,10 @@ const Login = () => {
           type="submit"
           className="w-48 p-2 m-2 bg-gray-700  text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg  border border-base-200 self-start  "
         >
-          Login
+          {loading && (
+            <span className=" inline-block animate-spin rounded-full border-2 border-white border-t-transparent w-4 h-4 mr-2" />
+          )}
+          {loading ? "Logging in..." : "Login"}
         </button>
       </Form>
     </Formik>
