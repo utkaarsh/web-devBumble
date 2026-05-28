@@ -13,6 +13,7 @@ import ProtectedRoute from "./custom/ProtectedRoutes";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "./utils/constants";
+import { setLocationIfNeeded } from "./utils/geolocation";
 
 function PrivateRoute({ children, user }) {
   return user ? children : <Navigate to="/" replace />;
@@ -61,6 +62,8 @@ function App() {
 
   useEffect(() => {
     refreshToken();
+    // Request location when app loads (for users already authenticated)
+    setLocationIfNeeded();
   }, []);
 
   useEffect(() => {

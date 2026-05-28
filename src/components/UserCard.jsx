@@ -20,6 +20,7 @@ const UserCard = ({ user }) => {
     experience,
     interests,
     skills,
+    distanceInKm,
   } = user;
   const dispatch = useDispatch();
 
@@ -28,7 +29,7 @@ const UserCard = ({ user }) => {
       const res = await axios.post(
         `${BASE_URL}/request/send/${status}/${id}`,
         {},
-        { withCredentials: true }
+        { withCredentials: true },
       );
       dispatch(removeUserFromFeed(id));
       return 1;
@@ -63,7 +64,7 @@ const UserCard = ({ user }) => {
           <div className="flex space-x-3 items-center">
             <PiMapPinLineBold className="w-4 h-4" />
 
-            <p>Pune, Maharashtra</p>
+            <p>{distanceInKm ?? 50} km away</p>
           </div>
 
           <div className="flex items-center space-x-3">

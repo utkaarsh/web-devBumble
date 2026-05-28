@@ -10,6 +10,7 @@ import { BASE_URL } from "../utils/constants";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { saveToken } from "../auth/authTokenStorage";
 import AuthContext from "../auth/context";
+import { setLocationIfNeeded } from "../utils/geolocation";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -59,6 +60,10 @@ const Login = () => {
           saveToken(token);
           axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
           authContext.setUser(res?.data.data);
+          
+          // Request location after successful login
+          await setLocationIfNeeded();
+          
           navigate("/");
         } catch (error) {
           console.error("Error login " + error?.response?.data);

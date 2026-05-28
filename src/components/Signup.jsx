@@ -15,6 +15,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { IoCodeSlashSharp } from "react-icons/io5";
 import { HiOutlineSparkles } from "react-icons/hi";
 import ChipsSelect from "./ChipsSelect";
+import { setLocationIfNeeded } from "../utils/geolocation";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -454,6 +455,10 @@ const SignupForm = () => {
               about: values.about,
               experience: values.experience,
             });
+            
+            // Request location after successful signup
+            await setLocationIfNeeded();
+            
             navigate("/profile");
             dispatch(addUser(res?.data.data));
           } catch (error) {
