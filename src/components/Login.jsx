@@ -33,8 +33,8 @@ const Login = () => {
   return (
     <Formik
       initialValues={{
-        emailId: "sandra.garcia83@example.in",
-        password: "hitler123",
+        emailId: "roman@email.com",
+        password: "Password@123",
       }}
       validationSchema={Yup.object({
         emailId: Yup.string()
@@ -60,10 +60,10 @@ const Login = () => {
           saveToken(token);
           axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
           authContext.setUser(res?.data.data);
-          
+
           // Request location after successful login
           await setLocationIfNeeded();
-          
+
           navigate("/");
         } catch (error) {
           console.error("Error login " + error?.response?.data);
