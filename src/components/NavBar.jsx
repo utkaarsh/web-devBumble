@@ -111,6 +111,12 @@ const NavBar = () => {
               Requests
             </button>
             <button
+              onClick={() => handleRouting("joblists")}
+              className="block w-full text-left px-4 py-2 hover:bg-base-100"
+            >
+              Jobs
+            </button>
+            <button
               onClick={handleLogOut}
               className="block w-full text-left px-4 py-2 text-red-600 hover:bg-base-100"
             >

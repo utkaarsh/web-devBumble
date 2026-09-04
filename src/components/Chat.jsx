@@ -15,13 +15,16 @@ const Chat = () => {
   const bottomRef = useRef(null);
 
   const fetchChatMessages = async () => {
-    const chat = await axios.get(BASE_URL + "/chat/" + otherUserId, {
-      withCredentials: true,
-    });
+    const chat = await axios.get(
+      BASE_URL + "/chat/" + otherUserId + "/messages",
+      {
+        withCredentials: true,
+      },
+    );
 
     console.log("Chat Response :: ", chat);
 
-    const chatMessages = chat?.data?.messages.map((msg) => {
+    const chatMessages = chat?.data?.data?.map((msg) => {
       const { senderId, text, createdAt } = msg;
       return {
         firstName: senderId?.firstName,
@@ -61,7 +64,7 @@ const Chat = () => {
             return { ...msg, seen: true };
           }
           return msg;
-        })
+        }),
       );
     });
   }, [messages]);
@@ -93,7 +96,7 @@ const Chat = () => {
           ...messages,
           { firstName, lastName, text, photoUrl, msgTime: timeAgo(createdAt) },
         ]);
-      }
+      },
     );
 
     //As soon as th page is loaded the socket connection is made and join-chat event is emmitted
@@ -109,12 +112,12 @@ const Chat = () => {
   }, [userId, otherUserId]);
 
   return (
-    <div className="w-3/4 mx-auto border border-gray-600 m-5 min-h-[90vh] flex flex-col">
+    <div className="w-3/4 mx-auto border border-gray-600 m-5 mt-24 h-full flex flex-col">
       <h1 className="p-5 border-b border-gray-600">Chat</h1>
 
       {/* display messages */}
 
-      <div className="flex-1 overflow-y-scroll p-5">
+      <div className="flex-1 overflow-y-auto p-5">
         {messages &&
           messages?.map((msg, index) => {
             return (
@@ -154,10 +157,15 @@ const Chat = () => {
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          className="border border-gray-600 flex-1 rounded-full p-2"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              sendMessage();
+            }
+          }}
+          className="border border-gray-600 flex-1 rounded-xl p-3"
           placeholder="Type a message ..."
         />
-        <button className="btn btn-secondary" onClick={sendMessage}>
+        <button className="btn btn-accent rounded-xl " onClick={sendMessage}>
           Send
         </button>
       </div>

@@ -32,7 +32,7 @@ const Body = () => {
   return (
     <div className="flex-1 absolute top-0 left-0 w-full h-screen overflow-y-auto no-scrollbar">
       <NavBar />
-      <div className="h-[88%] overflow-hidden ">
+      <div className="h-[88%] overflow-hidden pt-[2%]">
         <Outlet />
       </div>
       {!user && (
